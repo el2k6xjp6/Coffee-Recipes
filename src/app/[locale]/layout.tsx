@@ -58,6 +58,18 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        {/* PWA primary color */}
+        <meta name="theme-color" content="#fafafa" />
+        {/* Apple Touch Icon */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Apple PWA meta */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Coffee Timer" />
+        {/* Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

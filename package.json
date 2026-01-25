@@ -7,11 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prettier": "prettier --check .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "next": "15.4.10",
     "next-intl": "^3.26.0",
+    "next-pwa": "^5.6.0",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
