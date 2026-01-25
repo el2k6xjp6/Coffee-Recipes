@@ -1,32 +1,6 @@
-export type BrewMethod = 'V60' | 'V60 Switch' | 'Aeropress' | 'French Press' | 'Chemex';
 
-export const BREW_STEP_TYPES = { BLOOM: 'bloom', POUR: 'pour', WAIT: 'wait' } as const;
-export type BrewStepType = (typeof BREW_STEP_TYPES)[keyof typeof BREW_STEP_TYPES];
-
-export const SWITCH_STATUS = { OPEN: 'open', CLOSED: 'closed' } as const;
-export type SwitchStatus = typeof SWITCH_STATUS[keyof typeof SWITCH_STATUS];
-
-export interface BrewStep {
-  type: BrewStepType;
-  startAt: number;     // 該步驟開始的時間（秒）
-  targetWater: number; // 到該步驟結束時，電子秤應顯示的總重量（克）
-  noteKey: string;     // 對應 messages/*.json 裡的翻譯鍵值
-  temp?: number;
-  switch?: SwitchStatus;
-}
-
-export interface Recipe {
-  id: string;
-  method: BrewMethod;
-  nameKey: string;     // 翻譯鍵值，例如 "recipes.v60_46.name"
-  author: string;
-  descriptionKey: string;
-  defaultCoffee: number; // 建議粉量（克）
-  ratio: number;         // 水粉比（1:X）
-  temp: number;          // 建議水溫
-  grindSize: string;     // 研磨度描述
-  steps: BrewStep[];
-}
+import type { Recipe } from '@/types/recipes';
+import { BREW_STEP_TYPES, SWITCH_STATUS } from '@/constants/recipes';
 
 export const recipes: Recipe[] = [
   {
@@ -68,7 +42,7 @@ export const recipes: Recipe[] = [
   {
     id: 'god-devil-switch',
     method: 'V60 Switch',
-    nameKey: 'recipes.devil_pour.name', // 記得在 i18n 補上
+    nameKey: 'recipes.devil_pour.name',
     author: 'Tetsu Kasuya',
     descriptionKey: 'recipes.devil_pour.description',
     defaultCoffee: 20,
@@ -94,15 +68,15 @@ export const recipes: Recipe[] = [
       },
       {
         type: BREW_STEP_TYPES.POUR,
-        startAt: 75, // 1分15秒
+        startAt: 75,
         targetWater: 280,
-        temp: 70, // 👈 這裡！大幅降溫
+        temp: 70,
         switch: SWITCH_STATUS.CLOSED,
         noteKey: 'steps.pour_sweetness'
       },
       {
         type: BREW_STEP_TYPES.WAIT,
-        startAt: 105, // 1分45秒
+        startAt: 105,
         targetWater: 280,
         switch: SWITCH_STATUS.OPEN,
         noteKey: 'steps.drain'

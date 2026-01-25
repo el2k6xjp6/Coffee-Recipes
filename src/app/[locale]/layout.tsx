@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
-import { Locale, locales } from "@/i18n/request"; // 確保路徑正確
+import { Locale, locales } from "@/i18n/config";
 import "../globals.css";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 

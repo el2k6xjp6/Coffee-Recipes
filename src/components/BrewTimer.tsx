@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { Recipe, BREW_STEP_TYPES } from "@/data/recipes";
+import type { Recipe } from "@/types/recipes";
+import { BREW_STEP_TYPES } from "@/constants/recipes";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 
@@ -19,26 +20,22 @@ export default function BrewTimer({
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
-  // 1. 找出當前步驟與索引
   const currentStepIndex = recipe.steps.findLastIndex(
     (step) => seconds >= step.startAt,
   );
   const currentStep = recipe.steps[currentStepIndex] || recipe.steps[0];
   const nextStep = recipe.steps[currentStepIndex + 1];
 
-  // 2. 計算當前階段的進度百分比 (%)
   const stepProgress = useMemo(() => {
-    if (!nextStep) return 100; // 最後一步
+    if (!nextStep) return 100; 
     const duration = nextStep.startAt - currentStep.startAt;
     const elapsed = seconds - currentStep.startAt;
     return Math.min((elapsed / duration) * 100, 100);
   }, [seconds, currentStep, nextStep]);
 
-  // 3. 計算總進度
   const totalDuration = recipe.steps[recipe.steps.length - 1].startAt + 30; // 假設結束後多留 30s 流乾
   const totalProgress = Math.min((seconds / totalDuration) * 100, 100);
 
-  // 1. 在渲染邏輯中計算當前溫度與顏色
   const displayTemp = currentStep.temp || recipe.temp;
   const isWarmWater = displayTemp <= 85; // 假設 85°C 以下為溫水
 
