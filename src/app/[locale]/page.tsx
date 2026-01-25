@@ -1,20 +1,22 @@
-// src/app/[locale]/page.tsx
 import { recipes } from "@/data/recipes";
 import RecipeCarousel from "@/components/RecipeCarousel";
+import { getTranslations } from "next-intl/server";
 
 export default async function IndexPage() {
+  const t = await getTranslations("Index");
   return (
-    <main className="min-h-screen bg-[#fafafa] flex flex-col items-center">
-      <header className="py-12 text-center px-6">
-        <h1 className="text-5xl font-black text-zinc-900 tracking-tighter mb-3">咖啡計時器</h1>
-        <p className="text-zinc-500 font-medium">你的開源手沖伴侶</p>
+    <main className="flex min-h-screen flex-col items-center bg-[#fafafa]">
+      <header className="px-6 py-12 text-center">
+        <h1 className="mb-3 text-5xl font-black tracking-tighter text-zinc-900">
+          {t("title")}
+        </h1>
       </header>
 
       {/* 呼叫 Carousel 組件 */}
       <RecipeCarousel recipes={recipes} />
 
-      <footer className="mt-auto py-10 text-zinc-400 text-[10px] tracking-widest uppercase">
-        Coffee Timer
+      <footer className="mt-auto py-10 text-[10px] tracking-widest text-zinc-400 uppercase">
+        {t("footer")}
       </footer>
     </main>
   );

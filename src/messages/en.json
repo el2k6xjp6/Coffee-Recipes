@@ -1,6 +1,7 @@
 {
   "Index": {
     "title": "Coffee Timer",
+    "footer": "Coffee Timer",
     "description": "Your open-source brewing companion",
     "start": "Select Recipe"
   },

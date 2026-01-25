@@ -14,21 +14,22 @@ export const StepStatusBar: React.FC<StepStatusBarProps> = ({
   t,
   tCommon,
 }) => (
-  <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-    <span className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
+  <div className="mb-6 flex items-center justify-between border-b border-white/5 pb-4">
+    <span className="rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-bold tracking-widest text-zinc-400 uppercase">
       {stepType === BREW_STEP_TYPES.BLOOM ? t("steps.bloom") : t("steps.pour")}
     </span>
     {switchStatus && (
       <div
-        className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all ${
+        className={`flex items-center gap-2 rounded-full px-3 py-1 transition-all ${
           switchStatus === "open"
             ? "bg-green-500/10 text-green-500"
             : "bg-orange-500/10 text-orange-500"
-        }`}>
+        }`}
+      >
         <div
-          className={`w-1.5 h-1.5 rounded-full ${switchStatus === "open" ? "bg-green-500" : "bg-orange-500"} animate-pulse`}
+          className={`h-1.5 w-1.5 rounded-full ${switchStatus === "open" ? "bg-green-500" : "bg-orange-500"} animate-pulse`}
         />
-        <span className="text-[10px] font-black uppercase tracking-widest">
+        <span className="text-[10px] font-black tracking-widest uppercase">
           {switchStatus === "open"
             ? tCommon("switch_open")
             : tCommon("switch_closed")}

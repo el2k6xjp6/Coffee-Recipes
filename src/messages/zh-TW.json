@@ -1,6 +1,7 @@
 {
   "Index": {
     "title": "咖啡計時器",
+    "footer": "咖啡計時器",
     "description": "你的開源手沖伴侶",
     "start": "選擇配方"
   },

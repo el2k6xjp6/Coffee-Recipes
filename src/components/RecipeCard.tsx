@@ -25,37 +25,37 @@ export default function RecipeCard({ recipe }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-sm border border-zinc-100 flex flex-col h-full">
-      <div className="h-30 mb-4">
-        <span className="text-[10px] font-black px-2 py-1 bg-orange-50 text-orange-600 rounded-md mb-2 inline-block uppercase">
+    <div className="flex h-full flex-col rounded-3xl border border-zinc-100 bg-white p-8 shadow-sm">
+      <div className="mb-4 h-30">
+        <span className="mb-2 inline-block rounded-md bg-orange-50 px-2 py-1 text-[10px] font-black text-orange-600 uppercase">
           {recipe.method}
         </span>
-        <h3 className="text-2xl font-black text-zinc-900 leading-tight line-clamp-2">
+        <h3 className="line-clamp-2 text-2xl leading-tight font-black text-zinc-900">
           {tRecipe(recipe.nameKey)}
         </h3>
-        <p className="text-xs font-bold text-zinc-400 mt-1">
+        <p className="mt-1 text-xs font-bold text-zinc-400">
           by {recipe.author}
         </p>
       </div>
 
       {/* 2. 參數網格區：固定高度 */}
-      <div className="grid grid-cols-3 gap-2 py-6 border-y border-zinc-100 h-25 items-center">
+      <div className="grid h-25 grid-cols-3 items-center gap-2 border-y border-zinc-100 py-6">
         <div className="text-center">
-          <p className="text-[10px] text-zinc-400 font-bold mb-1 uppercase tracking-tighter">
+          <p className="mb-1 text-[10px] font-bold tracking-tighter text-zinc-400 uppercase">
             {tCommon("temp")}
           </p>
           <p className="text-lg font-black text-zinc-900">{recipe.temp}°C</p>
         </div>
-        <div className="text-center border-x border-zinc-100 flex flex-col justify-center h-full">
-          <p className="text-[10px] text-zinc-400 font-bold mb-1 uppercase tracking-tighter">
+        <div className="flex h-full flex-col justify-center border-x border-zinc-100 text-center">
+          <p className="mb-1 text-[10px] font-bold tracking-tighter text-zinc-400 uppercase">
             {tCommon("grind")}
           </p>
-          <p className="text-sm font-black text-zinc-900 leading-none">
+          <p className="text-sm leading-none font-black text-zinc-900">
             {recipe.grindSize}
           </p>
         </div>
         <div className="text-center">
-          <p className="text-[10px] text-zinc-400 font-bold mb-1 uppercase tracking-tighter">
+          <p className="mb-1 text-[10px] font-bold tracking-tighter text-zinc-400 uppercase">
             {tCommon("ratio")}
           </p>
           <p className="text-lg font-black text-zinc-900">1:{recipe.ratio}</p>
@@ -63,11 +63,11 @@ export default function RecipeCard({ recipe }: Props) {
       </div>
 
       {/* 3. 粉量調整器：使用 flex-grow 佔據剩餘空間，確保它垂直置中 */}
-      <div className="grow flex flex-col justify-center py-6">
-        <div className="flex items-center justify-between bg-zinc-50 p-4 rounded-2xl">
+      <div className="flex grow flex-col justify-center py-6">
+        <div className="flex items-center justify-between rounded-2xl bg-zinc-50 p-4">
           {/* 左側粉量輸入 */}
           <div className="flex flex-col">
-            <span className="text-[10px] text-zinc-400 font-bold uppercase">
+            <span className="text-[10px] font-bold text-zinc-400 uppercase">
               {tCommon("coffee")}
             </span>
             <div className="flex items-baseline gap-1">
@@ -75,7 +75,7 @@ export default function RecipeCard({ recipe }: Props) {
                 type="number"
                 value={coffeeWeight}
                 onChange={(e) => setCoffeeWeight(Number(e.target.value))}
-                className="bg-transparent font-black text-xl w-10 text-zinc-900 focus:outline-none"
+                className="w-10 bg-transparent text-xl font-black text-zinc-900 focus:outline-none"
               />
               <span className="text-sm font-bold text-zinc-400">g</span>
             </div>
@@ -85,12 +85,12 @@ export default function RecipeCard({ recipe }: Props) {
 
           {/* 右側水量顯示 */}
           <div className="flex flex-col text-right">
-            <span className="text-[10px] text-zinc-400 font-bold uppercase">
+            <span className="text-[10px] font-bold text-zinc-400 uppercase">
               {tCommon("water")}
             </span>
-            <p className="font-black text-xl text-orange-600">
+            <p className="text-xl font-black text-orange-600">
               {totalWater}
-              <span className="text-sm ml-1 text-zinc-400 font-bold">ml</span>
+              <span className="ml-1 text-sm font-bold text-zinc-400">ml</span>
             </p>
           </div>
         </div>
@@ -100,7 +100,8 @@ export default function RecipeCard({ recipe }: Props) {
       <div className="mt-auto">
         <button
           onClick={handleStart}
-          className="w-full bg-zinc-900 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest active:scale-95 transition-transform">
+          className="w-full rounded-2xl bg-zinc-900 py-4 text-sm font-black tracking-widest text-white uppercase transition-transform active:scale-95"
+        >
           {tCommon("start_brew")}
         </button>
       </div>

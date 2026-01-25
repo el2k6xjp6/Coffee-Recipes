@@ -1,7 +1,6 @@
-
-import { getRequestConfig } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { locales, Locale } from './config';
+import { getRequestConfig } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { locales, Locale } from "./config";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // 1. 取得 locale 並等待其解析 (Unwrap Promise)
@@ -14,6 +13,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale: locale as Locale,
-    messages: (await import(`../messages/${locale}.json`)).default
+    messages: (await import(`../messages/${locale}.json`)).default,
   };
 });

@@ -22,7 +22,7 @@ export default async function RecipeDetailPage({
   const initialCoffee = coffee ? Number(coffee) : recipe.defaultCoffee;
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white flex flex-col">
+    <main className="flex min-h-screen flex-col bg-zinc-950 text-white">
       {/* 這裡我們交給 Client Component 處理複雜的計時邏輯 */}
       <BrewTimer recipe={recipe} initialCoffee={initialCoffee} />
     </main>

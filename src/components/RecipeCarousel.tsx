@@ -21,16 +21,18 @@ export default function RecipeCarousel({ recipes }: { recipes: Recipe[] }) {
   };
 
   return (
-    <section className="w-full relative">
+    <section className="relative w-full">
       {/* 捲動容器 */}
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex overflow-x-auto pb-12 pt-4 px-[12vw] gap-6 snap-x snap-mandatory scroll-smooth hide-scrollbar">
+        className="hide-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[12vw] pt-4 pb-12"
+      >
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="min-w-[76vw] md:min-w-100 snap-center">
+            className="min-w-[76vw] snap-center md:min-w-100"
+          >
             <RecipeCard recipe={recipe} />
           </div>
         ))}
@@ -39,8 +41,8 @@ export default function RecipeCarousel({ recipes }: { recipes: Recipe[] }) {
       </div>
 
       {/* 左右漸層遮罩 */}
-      <div className="absolute top-0 left-0 h-full w-[15vw] bg-linear-to-r from-[#fafafa] to-transparent pointer-events-none" />
-      <div className="absolute top-0 right-0 h-full w-[15vw] bg-linear-to-l from-[#fafafa] to-transparent pointer-events-none" />
+      <div className="pointer-events-none absolute top-0 left-0 h-full w-[15vw] bg-linear-to-r from-[#fafafa] to-transparent" />
+      <div className="pointer-events-none absolute top-0 right-0 h-full w-[15vw] bg-linear-to-l from-[#fafafa] to-transparent" />
 
       {/* 進度指標點 */}
       <ScrollIndicator count={recipes.length} activeIndex={activeIndex} />
