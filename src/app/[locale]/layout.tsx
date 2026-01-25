@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Locale, locales } from "@/i18n/config";
 import "../globals.css";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import { Metadata, Viewport } from "next"; // 1. 引入型別
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,28 +18,43 @@ const geistMono = Geist_Mono({
 });
 
 /**
+ * 2. 新增 Viewport 設定 (Next.js 14+ 建議做法)
+ * 把 theme-color 從 metadata 獨立出來
+ */
+export const viewport: Viewport = {
+  themeColor: "#fafafa",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1, // 如果不希望使用者縮放 (對 App 體驗較好)
+};
+
+/**
  * generateMetadata - 產生 i18n 頁面 metadata
- * @param params Promise<{ locale: string }>
- * @returns metadata 物件
  */
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}) {
-  // 關鍵點：必須先 await params（Next.js 15 新寫法）
+}): Promise<Metadata> {
   const { locale } = await params;
+
   return {
     title: locale === "zh-TW" ? "手沖咖啡計時器" : "Coffee Brew Timer",
     description: "Your open-source coffee brewing companion",
+
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: "Coffee Timer",
+    },
   };
 }
 
-/**
- * LocaleLayout - i18n layout 元件
- * @param children ReactNode
- * @param params Promise<{ locale: string }>
- */
 export default async function LocaleLayout({
   children,
   params,
@@ -48,28 +64,14 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  // 驗證語系是否在允許清單內
   if (!locales.includes(locale as Locale)) {
     notFound();
   }
 
-  // 獲取該語系的翻譯字典
   const messages = await getMessages();
 
   return (
     <html lang={locale}>
-      <head>
-        {/* PWA primary color */}
-        <meta name="theme-color" content="#fafafa" />
-        {/* Apple Touch Icon */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        {/* Apple PWA meta */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Coffee Timer" />
-        {/* Manifest */}
-        <link rel="manifest" href="/manifest.json" />
-      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
