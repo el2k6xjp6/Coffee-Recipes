@@ -1,6 +1,7 @@
 import { recipes } from "@/data/recipes";
 import { notFound } from "next/navigation";
 import BrewTimer from "@/components/BrewTimer";
+export const runtime = 'edge';
 
 type Props = {
   params: Promise<{ id: string }>;

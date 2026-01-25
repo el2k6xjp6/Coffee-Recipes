@@ -1,6 +1,7 @@
 import { recipes } from "@/data/recipes";
 import RecipeCarousel from "@/components/RecipeCarousel";
 import { getTranslations } from "next-intl/server";
+export const runtime = 'edge';
 
 export default async function IndexPage() {
   const t = await getTranslations("Index");
