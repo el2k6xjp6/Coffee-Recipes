@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useTimer } from "@/hooks/useTimer";
 import type { Recipe } from "@/types/recipes";
-import { BREW_STEP_TYPES } from "@/constants/recipes";
+import { ProgressBar } from "./ProgressBar";
+import { StepStatusBar } from "./StepStatusBar";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 
@@ -17,8 +19,8 @@ export default function BrewTimer({
   const tCommon = useTranslations("common");
   const router = useRouter();
 
-  const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const { seconds } = useTimer(isActive);
 
   const currentStepIndex = recipe.steps.findLastIndex(
     (step) => seconds >= step.startAt,
@@ -27,7 +29,7 @@ export default function BrewTimer({
   const nextStep = recipe.steps[currentStepIndex + 1];
 
   const stepProgress = useMemo(() => {
-    if (!nextStep) return 100; 
+    if (!nextStep) return 100;
     const duration = nextStep.startAt - currentStep.startAt;
     const elapsed = seconds - currentStep.startAt;
     return Math.min((elapsed / duration) * 100, 100);
@@ -39,24 +41,11 @@ export default function BrewTimer({
   const displayTemp = currentStep.temp || recipe.temp;
   const isWarmWater = displayTemp <= 85; // 假設 85°C 以下為溫水
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isActive) {
-      interval = setInterval(() => {
-        setSeconds((prev) => prev + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isActive]);
-
   return (
     <div className="flex-1 flex flex-col items-center justify-between p-8 bg-zinc-950 text-white">
       {/* 頂部總進度條 */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-zinc-800">
-        <div
-          className="h-full bg-orange-500 transition-all duration-1000 ease-linear"
-          style={{ width: `${totalProgress}%` }}
-        />
+      <div className="fixed top-0 left-0 w-full">
+        <ProgressBar progress={totalProgress} />
       </div>
 
       <div className="text-center mt-10">
@@ -76,42 +65,24 @@ export default function BrewTimer({
         </div>
 
         {/* 階段進度條視覺化 */}
-        <div className="w-64 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-white transition-all duration-1000 ease-linear"
-            style={{ width: `${stepProgress}%` }}
+        <div className="w-64 rounded-full overflow-hidden">
+          <ProgressBar
+            progress={stepProgress}
+            colorClass="bg-white"
+            heightClass="h-1.5"
           />
         </div>
       </div>
 
       {/* 底部指令區 */}
-      <div className="w-full max-w-sm bg-zinc-900/80 backdrop-blur-xl rounded-[32px] p-7 mb-10 border border-white/10 shadow-2xl">
+      <div className="w-full max-w-sm bg-zinc-900/80 backdrop-blur-xl rounded-4xl p-7 mb-10 border border-white/10 shadow-2xl">
         {/* 1. 頂部狀態列：模式與開關 */}
-        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-          <span className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
-            {currentStep.type === BREW_STEP_TYPES.BLOOM
-              ? t("steps.bloom")
-              : t("steps.pour")}
-          </span>
-
-          {currentStep.switch && (
-            <div
-              className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all ${
-                currentStep.switch === "open"
-                  ? "bg-green-500/10 text-green-500"
-                  : "bg-orange-500/10 text-orange-500"
-              }`}>
-              <div
-                className={`w-1.5 h-1.5 rounded-full ${currentStep.switch === "open" ? "bg-green-500" : "bg-orange-500"} animate-pulse`}
-              />
-              <span className="text-[10px] font-black uppercase tracking-widest">
-                {currentStep.switch === "open"
-                  ? tCommon("switch_open")
-                  : tCommon("switch_closed")}
-              </span>
-            </div>
-          )}
-        </div>
+        <StepStatusBar
+          stepType={currentStep.type}
+          switchStatus={currentStep.switch}
+          t={t}
+          tCommon={tCommon}
+        />
 
         {/* 2. 主資訊區 */}
         <div className="flex justify-between items-end mb-10">
