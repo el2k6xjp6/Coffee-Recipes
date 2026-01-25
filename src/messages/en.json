@@ -1,0 +1,47 @@
+{
+  "Index": {
+    "title": "Coffee Timer",
+    "description": "Your open-source brewing companion",
+    "start": "Select Recipe"
+  },
+  "recipes": {
+    "tetsu_46": {
+      "name": "Tetsu Kasuya 4:6",
+      "description": "Precision control over acidity and sweetness via water ratios."
+    },
+    "devil_pour": {
+      "name": "God-Devil Method",
+      "description": "Kasuya's world-class hybrid method: High-temp extraction followed by low-temp immersion for extreme sweetness."
+    },
+    "god_devil_standard": {
+      "name": "Devil Switch: Ultimate Sweetness",
+      "description": "Optimized for 20g: A 4-stage precision method using temperature drops and immersion switching to maximize sweetness."
+    },
+    "hoffmann_v60": {
+      "name": "James Hoffmann V60",
+      "description": "A balanced and clean approach to the classic V60 brew."
+    }
+  },
+  "steps": {
+    "bloom": "Bloom",
+    "pour": "Pour",
+    "pour_sweetness": "Sweetness Adjustment",
+    "pour_strength": "Strength Adjustment",
+    "pour_final": "Final Pour",
+    "drain": "Drawdown",
+    "first_pour": "First Pour",
+    "second_pour": "Second Pour"
+  },
+  "common": {
+    "temp": "Temp",
+    "grind": "Grind",
+    "ratio": "Ratio",
+    "coffee": "Coffee",
+    "water": "Target",
+    "start_brew": "Start Brewing",
+    "pause": "Pause",
+    "exit": "Exit",
+    "switch_open": "Switch: Open",
+    "switch_closed": "Switch: Closed"
+  }
+}

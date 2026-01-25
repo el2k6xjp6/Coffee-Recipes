@@ -1,0 +1,47 @@
+{
+  "Index": {
+    "title": "咖啡計時器",
+    "description": "你的開源手沖伴侶",
+    "start": "選擇配方"
+  },
+  "recipes": {
+    "tetsu_46": {
+      "name": "粕谷哲 4:6 法",
+      "description": "透過調整注水比例來精確控制酸甜感與強度。"
+    },
+    "devil_pour": {
+      "name": "與惡魔交換的手沖法",
+      "description": "粕谷哲世界冠軍配方：前段高溫萃取香氣，後段低溫浸泡增加甜感。"
+    },
+    "god_devil_standard": {
+      "name": "惡魔切換法：極致甜感",
+      "description": "20g 豆專用：透過四段精確溫控與開關切換，榨出咖啡最極致的甜味。"
+    },
+    "hoffmann_v60": {
+      "name": "James Hoffmann V60",
+      "description": "經典的 V60 沖煮法，強調風味的平衡與清晰度。"
+    }
+  },
+  "steps": {
+    "bloom": "悶蒸",
+    "pour": "注水",
+    "pour_sweetness": "第一段：甜度調整",
+    "pour_strength": "第二段：強度調整",
+    "pour_final": "最後一段注水",
+    "drain": "等待流乾",
+    "first_pour": "第一段注水",
+    "second_pour": "第二段注水"
+  },
+  "common": {
+    "switch_open": "開啟 (流下)",
+    "switch_closed": "關閉 (浸泡)",
+    "temp": "溫度",
+    "water": "目標重量",
+    "grind": "研磨度",
+    "ratio": "水粉比",
+    "coffee": "咖啡粉",
+    "start_brew": "開始沖煮",
+    "pause": "暫停",
+    "exit": "退出"
+  }
+}

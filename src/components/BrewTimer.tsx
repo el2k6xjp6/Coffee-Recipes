@@ -1,0 +1,187 @@
+"use client";
+
+import { useState, useEffect, useMemo } from "react";
+import { Recipe, BREW_STEP_TYPES } from "@/data/recipes";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
+
+export default function BrewTimer({
+  recipe,
+  initialCoffee,
+}: {
+  recipe: Recipe;
+  initialCoffee: number;
+}) {
+  const t = useTranslations();
+  const tCommon = useTranslations("common");
+  const router = useRouter();
+
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+
+  // 1. 找出當前步驟與索引
+  const currentStepIndex = recipe.steps.findLastIndex(
+    (step) => seconds >= step.startAt,
+  );
+  const currentStep = recipe.steps[currentStepIndex] || recipe.steps[0];
+  const nextStep = recipe.steps[currentStepIndex + 1];
+
+  // 2. 計算當前階段的進度百分比 (%)
+  const stepProgress = useMemo(() => {
+    if (!nextStep) return 100; // 最後一步
+    const duration = nextStep.startAt - currentStep.startAt;
+    const elapsed = seconds - currentStep.startAt;
+    return Math.min((elapsed / duration) * 100, 100);
+  }, [seconds, currentStep, nextStep]);
+
+  // 3. 計算總進度
+  const totalDuration = recipe.steps[recipe.steps.length - 1].startAt + 30; // 假設結束後多留 30s 流乾
+  const totalProgress = Math.min((seconds / totalDuration) * 100, 100);
+
+  // 1. 在渲染邏輯中計算當前溫度與顏色
+  const displayTemp = currentStep.temp || recipe.temp;
+  const isWarmWater = displayTemp <= 85; // 假設 85°C 以下為溫水
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isActive]);
+
+  return (
+    <div className="flex-1 flex flex-col items-center justify-between p-8 bg-zinc-950 text-white">
+      {/* 頂部總進度條 */}
+      <div className="fixed top-0 left-0 w-full h-1 bg-zinc-800">
+        <div
+          className="h-full bg-orange-500 transition-all duration-1000 ease-linear"
+          style={{ width: `${totalProgress}%` }}
+        />
+      </div>
+
+      <div className="text-center mt-10">
+        <h2 className="text-zinc-500 uppercase tracking-widest text-xs mb-1">
+          {recipe.author}
+        </h2>
+        <h1 className="text-2xl font-bold tracking-tight">
+          {t(recipe.nameKey)}
+        </h1>
+      </div>
+
+      {/* 計時器主體 */}
+      <div className="flex flex-col items-center">
+        <div className="text-[120px] leading-none font-mono font-black tabular-nums tracking-tighter mb-4">
+          {Math.floor(seconds / 60)}:
+          {(seconds % 60).toString().padStart(2, "0")}
+        </div>
+
+        {/* 階段進度條視覺化 */}
+        <div className="w-64 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-white transition-all duration-1000 ease-linear"
+            style={{ width: `${stepProgress}%` }}
+          />
+        </div>
+      </div>
+
+      {/* 底部指令區 */}
+      <div className="w-full max-w-sm bg-zinc-900/80 backdrop-blur-xl rounded-[32px] p-7 mb-10 border border-white/10 shadow-2xl">
+        {/* 1. 頂部狀態列：模式與開關 */}
+        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
+          <span className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 text-[10px] font-bold uppercase tracking-widest">
+            {currentStep.type === BREW_STEP_TYPES.BLOOM
+              ? t("steps.bloom")
+              : t("steps.pour")}
+          </span>
+
+          {currentStep.switch && (
+            <div
+              className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all ${
+                currentStep.switch === "open"
+                  ? "bg-green-500/10 text-green-500"
+                  : "bg-orange-500/10 text-orange-500"
+              }`}>
+              <div
+                className={`w-1.5 h-1.5 rounded-full ${currentStep.switch === "open" ? "bg-green-500" : "bg-orange-500"} animate-pulse`}
+              />
+              <span className="text-[10px] font-black uppercase tracking-widest">
+                {currentStep.switch === "open"
+                  ? tCommon("switch_open")
+                  : tCommon("switch_closed")}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* 2. 主資訊區 */}
+        <div className="flex justify-between items-end mb-10">
+          {/* 左：指令標題 */}
+          <div className="flex-1 pr-4">
+            <h3 className="text-3xl font-black leading-tight tracking-tight text-white">
+              {t(currentStep.noteKey)}
+            </h3>
+          </div>
+
+          {/* 右側：參數組 */}
+          <div className="flex flex-col items-end gap-1">
+            {/* 溫度顯示：根據溫度切換顏色 */}
+            <div className="flex items-baseline gap-1">
+              <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-tighter">
+                {t("common.temp")}
+              </span>
+              <div className="flex items-baseline transition-all duration-500">
+                <span
+                  className={`text-2xl font-black tabular-nums tracking-tighter ${
+                    isWarmWater
+                      ? "text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+                      : "text-orange-500"
+                  }`}>
+                  {displayTemp}
+                </span>
+                <span
+                  className={`text-xs ml-0.5 font-bold ${isWarmWater ? "text-cyan-900" : "text-zinc-600"}`}>
+                  °C
+                </span>
+              </div>
+            </div>
+
+            {/* 重量顯示：始終保持醒目 */}
+            <div className="flex items-baseline gap-1">
+              <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-tighter">
+                {t("common.water")}
+              </span>
+              <span className="text-5xl font-black tabular-nums text-white tracking-tighter">
+                {Math.round(
+                  (currentStep.targetWater / recipe.defaultCoffee) *
+                    initialCoffee,
+                )}
+                <span className="text-lg ml-1 font-bold text-zinc-500">g</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. 按鈕區 */}
+        <div className="grid grid-cols-2 gap-4">
+          <button
+            onClick={() => setIsActive(!isActive)}
+            className={`py-4 rounded-2xl font-bold transition-all active:scale-95 ${
+              isActive
+                ? "bg-zinc-800 text-zinc-400"
+                : "bg-white text-black shadow-lg shadow-white/10"
+            }`}>
+            {isActive ? tCommon("pause") : tCommon("start_brew")}
+          </button>
+          <button
+            onClick={() => router.back()}
+            className="py-4 rounded-2xl font-bold bg-zinc-800/50 text-zinc-500 hover:text-white transition-colors">
+            {tCommon("exit")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
