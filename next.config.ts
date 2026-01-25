@@ -1,10 +1,17 @@
+import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
-import withPWA from "next-pwa";
+import withPWAInit from "next-pwa"; // 這裡通常建議重新命名避免混淆
 
 const withNextIntl = createNextIntlPlugin();
 
-// 定義 CSP 策略 (這行最長，拉出來寫比較整齊)
-// 注意：如果你有接其他的 API 或圖片，可能要加在 connect-src 或 img-src
+// 1. 初始化 PWA 設定 (TypeScript 下這樣寫比較穩)
+const withPWA = withPWAInit({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  // 如果你需要 disable 開發環境的 PWA，可以在這裡加 disable: process.env.NODE_ENV === 'development'
+});
+
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com;
@@ -19,46 +26,40 @@ const cspHeader = `
     upgrade-insecure-requests;
 `;
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // 原有的 PWA 設定
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-  },
+// 2. 明確指定型別 : NextConfig
+const nextConfig: NextConfig = {
+  // PWA 設定已經移到上面的 withPWAInit 裡了，這裡不需要再寫 pwa: {}
 
-  // 新增：安全性標頭 (Security Headers)
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "X-Content-Type-Options",
+            value: "nosniff",
           },
           {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
           },
           {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
           },
           {
-            key: 'Content-Security-Policy',
-            value: cspHeader.replace(/\n/g, ''), // 去除換行，變成一行
+            key: "Content-Security-Policy",
+            value: cspHeader.replace(/\n/g, ""),
           },
         ],
       },
-    ]
+    ];
   },
 };
 
-// 保持原有的 export 結構
+// 3. 組合匯出
 export default withNextIntl(withPWA(nextConfig));

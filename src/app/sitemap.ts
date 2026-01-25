@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8, // 內頁權重次之
-    }))
+    })),
   );
 
   // 3. 合併回傳

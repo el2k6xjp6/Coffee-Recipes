@@ -37,16 +37,25 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const baseUrl = "https://coffee.el2k6xjp6.com";
 
   return {
     title: locale === "zh-TW" ? "手沖咖啡計時器" : "Coffee Brew Timer",
     description: "Your open-source coffee brewing companion",
-
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      // 這告訴 Google：不同語言版本的對應關係
+      languages: {
+        en: "/en",
+        "zh-TW": "/zh-TW",
+      },
+      // 這告訴 Google：這個頁面的標準網址就是它自己 (避免被當作重複內容)
+      canonical: `/${locale}`,
+    },
     icons: {
       icon: "/favicon.ico",
       apple: "/apple-touch-icon.png",
     },
-
     appleWebApp: {
       capable: true,
       statusBarStyle: "default",

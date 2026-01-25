@@ -1,12 +1,23 @@
 import { recipes } from "@/data/recipes";
 import RecipeCarousel from "@/components/RecipeCarousel";
 import { getTranslations } from "next-intl/server";
-export const runtime = 'edge';
+import { generateWebSiteJsonLd } from "@/utils/seo";
+export const runtime = "edge";
 
-export default async function IndexPage() {
+export default async function IndexPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const jsonLd = generateWebSiteJsonLd(locale);
   const t = await getTranslations("Index");
   return (
     <main className="flex min-h-screen flex-col items-center bg-[#fafafa]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="px-6 py-12 text-center">
         <h1 className="mb-3 text-5xl font-black tracking-tighter text-zinc-900">
           {t("title")}
