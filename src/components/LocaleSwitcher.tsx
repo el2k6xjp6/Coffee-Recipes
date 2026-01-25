@@ -14,9 +14,11 @@ export default function LocaleSwitcher() {
   const toggleLocale = () => {
     const nextLocale = locale === "en" ? "zh-TW" : "en";
 
-    // 使用 next-intl 的 router 來確保路徑正確轉換
-    // @ts-expect-error params 類型轉換
-    router.replace({ pathname, params }, { locale: nextLocale });
+    // 使用 query 傳遞參數，符合 next-intl router API
+    router.replace(
+      { pathname, query: params as Record<string, string> },
+      { locale: nextLocale },
+    );
   };
 
   return (
