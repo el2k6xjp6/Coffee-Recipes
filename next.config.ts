@@ -9,7 +9,7 @@ const withPWA = withPWAInit({
   dest: "public",
   register: true,
   skipWaiting: true,
-  // 如果你需要 disable 開發環境的 PWA，可以在這裡加 disable: process.env.NODE_ENV === 'development'
+  disable: process.env.NODE_ENV === 'development'
 });
 
 const cspHeader = `

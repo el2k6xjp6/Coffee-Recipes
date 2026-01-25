@@ -26,9 +26,10 @@ export default function RecipeCarousel({ recipes }: { recipes: Recipe[] }) {
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="hide-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[12vw] pt-4 pb-12"
+        className="hide-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[12vw] pt-4 pb-4"
       >
         {recipes.map((recipe) => (
+          // 卡片寬度維持不變
           <div
             key={recipe.id}
             className="min-w-[76vw] snap-center md:min-w-100"
@@ -36,13 +37,13 @@ export default function RecipeCarousel({ recipes }: { recipes: Recipe[] }) {
             <RecipeCard recipe={recipe} />
           </div>
         ))}
-        {/* 最後留白，讓最後一張卡片能完美置中 */}
+        {/* 最後留白 */}
         <div className="min-w-[12vw] shrink-0" />
       </div>
 
-      {/* 左右漸層遮罩 */}
-      <div className="pointer-events-none absolute top-0 left-0 h-full w-[15vw] bg-linear-to-r from-[#fafafa] to-transparent" />
-      <div className="pointer-events-none absolute top-0 right-0 h-full w-[15vw] bg-linear-to-l from-[#fafafa] to-transparent" />
+      {/* 漸層遮罩 */}
+      <div className="pointer-events-none absolute top-0 left-0 h-full w-[10vw] bg-gradient-to-r from-zinc-950 to-transparent" />
+      <div className="pointer-events-none absolute top-0 right-0 h-full w-[10vw] bg-gradient-to-l from-zinc-950 to-transparent" />
 
       {/* 進度指標點 */}
       <ScrollIndicator count={recipes.length} activeIndex={activeIndex} />

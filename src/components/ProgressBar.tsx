@@ -4,16 +4,21 @@ interface ProgressBarProps {
   progress: number; // 0~100
   colorClass?: string;
   heightClass?: string;
+  className?: string; // 預留一個彈性介面，萬一外部要加 margin
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   progress,
   colorClass = "bg-orange-500",
   heightClass = "h-1",
+  className = "",
 }) => (
-  <div className={`w-full ${heightClass} bg-zinc-800`}>
+  // 1. 加入 rounded-full 讓軌道變圓
+  // 2. 加入 overflow-hidden 確保內部進度條不會跑出圓角
+  <div className={`w-full ${heightClass} bg-zinc-800 rounded-full overflow-hidden ${className}`}>
     <div
-      className={`h-full ${colorClass} transition-all duration-1000 ease-linear`}
+      // 3. 內部也要 rounded-full (雖然有 overflow-hidden，但在某些瀏覽器加了比較保險)
+      className={`h-full ${colorClass} rounded-full transition-all duration-1000 ease-linear`}
       style={{ width: `${progress}%` }}
     />
   </div>

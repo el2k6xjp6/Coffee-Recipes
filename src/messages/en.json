@@ -34,6 +34,7 @@
     "second_pour": "Second Pour"
   },
   "common": {
+    "time": "Time",
     "temp": "Temp",
     "grind": "Grind",
     "ratio": "Ratio",
@@ -44,5 +45,10 @@
     "exit": "Exit",
     "switch_open": "Switch: Open",
     "switch_closed": "Switch: Closed"
+  },
+  "Footer": {
+    "github": "Source Code",
+    "coffee": "Buy me a coffee",
+    "contact": "Contact Author"
   }
 }

@@ -34,6 +34,7 @@
     "second_pour": "第二段注水"
   },
   "common": {
+    "time": "時間",
     "switch_open": "開啟 (流下)",
     "switch_closed": "關閉 (浸泡)",
     "temp": "溫度",
@@ -44,5 +45,10 @@
     "start_brew": "開始沖煮",
     "pause": "暫停",
     "exit": "退出"
+  },
+  "Footer": {
+    "github": "原始碼",
+    "coffee": "請我喝杯咖啡",
+    "contact": "聯絡作者"
   }
 }
