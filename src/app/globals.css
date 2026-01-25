@@ -35,3 +35,16 @@ body {
     scrollbar-width: none;
   }
 }
+
+@layer utilities {
+  /* 隱藏 Chrome, Safari and Opera 的捲動條 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 隱藏 IE, Edge and Firefox 的捲動條 */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

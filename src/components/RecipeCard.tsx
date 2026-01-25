@@ -19,6 +19,7 @@ interface Props {
 export default function RecipeCard({ recipe }: Props) {
   const router = useRouter();
   const tCommon = useTranslations("common");
+  const tMethods = useTranslations("Methods");
   const tRecipe = useTranslations();
 
   const [coffeeWeight, setCoffeeWeight] = useState(recipe.defaultCoffee);
@@ -47,7 +48,7 @@ export default function RecipeCard({ recipe }: Props) {
         <span
           className={`mb-3 inline-block rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase ${badgeClass}`}
         >
-          {recipe.method}
+          {tMethods(recipe.method)}
         </span>
 
         {/* 固定高度標題區 */}
@@ -92,7 +93,7 @@ export default function RecipeCard({ recipe }: Props) {
           {/* items-end 讓單行文字沈底，雙行文字剛好填滿，達成視覺對齊 */}
           <div className="flex h-10 w-full items-center justify-center">
             <p className="w-full text-center text-sm leading-tight font-bold break-words text-white">
-              {recipe.grindSize}
+              {tRecipe(recipe.grindSize)}
             </p>
           </div>
         </div>

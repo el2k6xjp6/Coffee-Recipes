@@ -2,11 +2,9 @@ import { Github, Coffee, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 mt-auto flex flex-col items-center gap-6 py-10">
-      
+    <footer className="relative z-10 mt-auto flex flex-col items-center gap-2 py-2">
       {/* 1. 社交連結區 (Icon Bar) */}
       <div className="flex items-center gap-6">
-        
         {/* GitHub */}
         <a
           href="https://github.com/el2k6xjp6/Coffee-Recipes"

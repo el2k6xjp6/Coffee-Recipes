@@ -1,8 +1,20 @@
 {
+  "Methods": {
+    "V60": "Hario V60",
+    "Kalita Wave": "Kalita Wave",
+    "Origami": "Origami",
+    "V60 Switch": "V60 Switch",
+    "Switch / Clever": "Switch / Clever",
+    "Aeropress": "Aeropress",
+    "French Press": "French Press",
+    "Chemex": "Chemex",
+    "Moka Pot": "Moka Pot",
+    "Siphon": "Siphon"
+  },
   "Index": {
     "title": "Coffee Timer",
     "footer": "Coffee Timer",
-    "description": "Your open-source brewing companion",
+    "description": "Your brewing companion",
     "start": "Select Recipe"
   },
   "recipes": {
@@ -19,8 +31,24 @@
       "description": "Optimized for 20g: A 4-stage precision method using temperature drops and immersion switching to maximize sweetness."
     },
     "hoffmann_v60": {
-      "name": "James Hoffmann V60",
-      "description": "A balanced and clean approach to the classic V60 brew."
+      "name": "Ultimate V60 Technique",
+      "description": "James Hoffmann's classic method. High temp, two-stage pour, swirl and stir for high extraction and evenness."
+    },
+    "switch_immersion": {
+      "name": "Simple Switch Immersion",
+      "description": "The easiest and most consistent method. Pour all water, steep, and release for a full-bodied and sweet cup."
+    },
+    "aeropress_standard": {
+      "name": "Everyday Aeropress",
+      "description": "James Hoffmann's ultimate technique. No inversion needed. Simple, forgiving, clean and sweet."
+    },
+    "french_press_classic": {
+      "name": "Classic French Press",
+      "description": "Pure immersion brewing. Long steep time creates a rich, heavy body. Perfect for lazy mornings."
+    },
+    "chemex_classic": {
+      "name": "Classic Chemex",
+      "description": "Thick filters remove oils and fines, resulting in an incredibly clean, bright, and elegant cup."
     }
   },
   "steps": {
@@ -31,9 +59,24 @@
     "pour_final": "Final Pour",
     "drain": "Drawdown",
     "first_pour": "First Pour",
-    "second_pour": "Second Pour"
+    "second_pour": "Second Pour",
+    "bloom_swirl": "Bloom & Swirl",
+    "pour_fast_60": "Fast pour to 60%",
+    "pour_slow_100": "Slow pour to 100%",
+    "stir_swirl": "Stir once & Swirl",
+    "pour_all_switch": "Close switch, pour all water",
+    "pour_all": "Pour all water",
+    "steep": "Steep (Break Crust if needed)",
+    "release_drain": "Open switch & Draw down",
+    "wait_steep": "Wait & Steep (until 2:00)",
+    "swirl_press": "Swirl gently, Press slowly (30s)",
+    "wait_4_min": "Cover & Wait 4 minutes",
+    "break_crust_scoop": "Break crust & Scoop foam",
+    "plunge_pour": "Plunge (not to bottom) & Pour",
+    "pour_steady": "Pour steadily in circles to target"
   },
   "common": {
+    "all": "All",
     "time": "Time",
     "temp": "Temp",
     "grind": "Grind",
@@ -50,5 +93,13 @@
     "github": "Source Code",
     "coffee": "Buy me a coffee",
     "contact": "Contact Author"
+  },
+  "Grind": {
+    "Coarse": "Coarse",
+    "MediumCoarse": "Medium Coarse",
+    "Medium": "Medium",
+    "MediumFine": "Medium Fine",
+    "Fine": "Fine",
+    "ExtraFine": "Extra Fine"
   }
 }

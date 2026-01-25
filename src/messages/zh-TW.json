@@ -1,8 +1,20 @@
 {
+  "Methods": {
+    "V60": "Hario V60",
+    "Kalita Wave": "Kalita 波浪濾杯",
+    "Origami": "Origami 折紙濾杯",
+    "V60 Switch": "V60 Switch",
+    "Switch / Clever": "聰明濾杯 / Switch",
+    "Aeropress": "愛樂壓",
+    "French Press": "法式濾壓壺",
+    "Chemex": "Chemex",
+    "Moka Pot": "摩卡壺",
+    "Siphon": "虹吸壺"
+  },
   "Index": {
     "title": "咖啡計時器",
     "footer": "咖啡計時器",
-    "description": "你的開源手沖伴侶",
+    "description": "你的手沖伴侶",
     "start": "選擇配方"
   },
   "recipes": {
@@ -19,8 +31,24 @@
       "description": "20g 豆專用：透過四段精確溫控與開關切換，榨出咖啡最極致的甜味。"
     },
     "hoffmann_v60": {
-      "name": "James Hoffmann V60",
-      "description": "經典的 V60 沖煮法，強調風味的平衡與清晰度。"
+      "name": "究極 V60 沖煮法",
+      "description": "James Hoffmann 的經典手法。高水溫、兩段注水、攪拌與搖晃，帶來高萃取率與均勻的風味。"
+    },
+    "switch_immersion": {
+      "name": "Switch 聰明浸泡法",
+      "description": "最簡單穩定的手法。將水一次注入，浸泡後釋放，得到口感厚實且甜感豐富的咖啡。"
+    },
+    "aeropress_standard": {
+      "name": "愛樂壓日常手法",
+      "description": "James Hoffmann 推薦的終極愛樂壓手法。不需要倒置，簡單、容錯率高，能煮出乾淨且甜感豐富的咖啡。"
+    },
+    "french_press_classic": {
+      "name": "法式濾壓壺經典沖煮",
+      "description": "最純粹的浸泡式萃取。長浸泡時間帶出咖啡的醇厚度，適合喜歡 heavy body 的人。"
+    },
+    "chemex_classic": {
+      "name": "Chemex 經典手沖",
+      "description": "Chemex 厚濾紙能濾除油脂與細粉，帶來極致乾淨、明亮且優雅的風味。"
     }
   },
   "steps": {
@@ -31,13 +59,28 @@
     "pour_final": "最後一段注水",
     "drain": "等待流乾",
     "first_pour": "第一段注水",
-    "second_pour": "第二段注水"
+    "second_pour": "第二段注水",
+    "bloom_swirl": "悶蒸並搖晃濾杯",
+    "pour_fast_60": "快速繞圈注水至 60%",
+    "pour_slow_100": "緩慢繞圈注水至 100%",
+    "stir_swirl": "用湯匙攪拌一圈並輕搖濾杯",
+    "pour_all_switch": "關閉開關，一次注入所有水",
+    "pour_all": "注入所有水量",
+    "steep": "靜置浸泡 (Break Crust)",
+    "release_drain": "打開開關，等待流乾",
+    "wait_steep": "靜置浸泡 (至 2:00)",
+    "swirl_press": "輕搖濾筒，緩慢壓桿 (30秒)",
+    "wait_4_min": "蓋上蓋子，靜置 4 分鐘",
+    "break_crust_scoop": "攪拌破渣，撈除表面浮沫",
+    "plunge_pour": "壓下濾網 (不壓到底)，倒出咖啡",
+    "pour_steady": "穩定緩慢繞圈注水至目標"
   },
   "common": {
+    "all": "全部",
+    "temp": "水溫",
     "time": "時間",
     "switch_open": "開啟 (流下)",
     "switch_closed": "關閉 (浸泡)",
-    "temp": "溫度",
     "water": "目標重量",
     "grind": "研磨度",
     "ratio": "水粉比",
@@ -50,5 +93,13 @@
     "github": "原始碼",
     "coffee": "請我喝杯咖啡",
     "contact": "聯絡作者"
+  },
+  "Grind": {
+    "Coarse": "粗研磨",
+    "MediumCoarse": "中粗研磨",
+    "Medium": "中研磨",
+    "MediumFine": "中細研磨",
+    "Fine": "細研磨",
+    "ExtraFine": "極細研磨"
   }
 }

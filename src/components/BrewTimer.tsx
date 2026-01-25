@@ -7,7 +7,7 @@ import { ProgressBar } from "./ProgressBar";
 import { StepStatusBar } from "./StepStatusBar";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Play, Pause, X, Thermometer, Timer } from "lucide-react"; 
+import { Play, Pause, X, Thermometer, Timer } from "lucide-react";
 
 export default function BrewTimer({
   recipe,
@@ -136,21 +136,19 @@ export default function BrewTimer({
         <div className="p-7 pt-4">
           {/* 左右佈局：左標題，右數據 */}
           <div className="mb-8 flex items-end justify-between gap-4">
-            
             {/* 左側：主指令標題 */}
             <div className="flex-1 pb-1">
-              <h3 className="text-4xl font-black leading-tight tracking-tight text-white/90">
+              <h3 className="text-4xl leading-tight font-black tracking-tight text-white/90">
                 {t(currentStep.noteKey)}
               </h3>
             </div>
 
             {/* 右側：數據堆疊 */}
             <div className="flex flex-col items-end gap-3">
-              
               {/* 溫度顯示 */}
               <div className="flex items-center gap-2">
                 <span className="flex items-center text-[10px] font-bold tracking-wider text-zinc-500 uppercase">
-                   <Thermometer size={12} />
+                  <Thermometer size={12} />
                 </span>
                 <div className="flex items-baseline">
                   <span
@@ -162,7 +160,9 @@ export default function BrewTimer({
                   >
                     {displayTemp}
                   </span>
-                  <span className="ml-0.5 text-xs font-bold text-zinc-600">°C</span>
+                  <span className="ml-0.5 text-xs font-bold text-zinc-600">
+                    °C
+                  </span>
                 </div>
               </div>
 
@@ -176,13 +176,12 @@ export default function BrewTimer({
                 </div>
                 {/* 水量小進度條 */}
                 <div className="h-1 w-16 overflow-hidden rounded-full bg-zinc-800">
-                  <div 
-                      className="h-full rounded-full bg-blue-500 transition-all duration-300" 
-                      style={{ width: `${stepProgress}%` }}
+                  <div
+                    className="h-full rounded-full bg-blue-500 transition-all duration-300"
+                    style={{ width: `${stepProgress}%` }}
                   />
                 </div>
               </div>
-
             </div>
           </div>
 

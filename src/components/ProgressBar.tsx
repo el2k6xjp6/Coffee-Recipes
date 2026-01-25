@@ -15,7 +15,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => (
   // 1. 加入 rounded-full 讓軌道變圓
   // 2. 加入 overflow-hidden 確保內部進度條不會跑出圓角
-  <div className={`w-full ${heightClass} bg-zinc-800 rounded-full overflow-hidden ${className}`}>
+  <div
+    className={`w-full ${heightClass} overflow-hidden rounded-full bg-zinc-800 ${className}`}
+  >
     <div
       // 3. 內部也要 rounded-full (雖然有 overflow-hidden，但在某些瀏覽器加了比較保險)
       className={`h-full ${colorClass} rounded-full transition-all duration-1000 ease-linear`}
