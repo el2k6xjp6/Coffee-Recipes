@@ -16,26 +16,35 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-type Props = {
+/**
+ * generateMetadata - 產生 i18n 頁面 metadata
+ * @param params Promise<{ locale: string }>
+ * @returns metadata 物件
+ */
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ locale: string }>;
-};
-// 注意：在 App Router 中，i18n 頁面的 metadata 建議改用 generateMetadata
-export async function generateMetadata({ params }: Props) {
-  // 關鍵點：必須先 await params
+}) {
+  // 關鍵點：必須先 await params（Next.js 15 新寫法）
   const { locale } = await params;
-
   return {
     title: locale === "zh-TW" ? "手沖咖啡計時器" : "Coffee Brew Timer",
     description: "Your open-source coffee brewing companion",
   };
 }
 
+/**
+ * LocaleLayout - i18n layout 元件
+ * @param children ReactNode
+ * @param params Promise<{ locale: string }>
+ */
 export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>; // Next.js 15 建議使用 Promise
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
