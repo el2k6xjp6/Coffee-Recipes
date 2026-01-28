@@ -87,11 +87,17 @@ export const recipes: Recipe[] = [
         type: BREW_STEP_TYPES.POUR,
         startAt: 135,
         targetWater: 240,
+        noteKey: "steps.pour_strength",
+      },
+      {
+        type: BREW_STEP_TYPES.POUR,
+        startAt: 180,
+        targetWater: 300,
         noteKey: "steps.pour_final",
       },
       {
         type: BREW_STEP_TYPES.WAIT,
-        startAt: 180,
+        startAt: 225,
         targetWater: 300,
         noteKey: "steps.drain",
       },
