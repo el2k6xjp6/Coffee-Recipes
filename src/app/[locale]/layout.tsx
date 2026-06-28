@@ -39,18 +39,36 @@ export async function generateMetadata({
   const { locale } = await params;
   const baseUrl = "https://coffee.el2k6xjp6.com";
 
+  const isZh = locale === "zh-TW";
+  const title = isZh ? "手沖咖啡計時器 | Coffee Brew Timer" : "Coffee Brew Timer";
+  const description = isZh
+    ? "開源手沖咖啡計時器與食譜，支援 V60、Switch、Aeropress 等多種沖煮法。"
+    : "Your open-source coffee brewing companion. Recipes and timer for V60, Switch, Aeropress, and more.";
+
   return {
-    title: locale === "zh-TW" ? "手沖咖啡計時器" : "Coffee Brew Timer",
-    description: "Your open-source coffee brewing companion",
+    title,
+    description,
     metadataBase: new URL(baseUrl),
     alternates: {
-      // 這告訴 Google：不同語言版本的對應關係
+      canonical: `${baseUrl}/${locale}`,
       languages: {
-        en: "/en",
-        "zh-TW": "/zh-TW",
+        en: `${baseUrl}/en`,
+        "zh-TW": `${baseUrl}/zh-TW`,
+        "x-default": `${baseUrl}/zh-TW`,
       },
-      // 這告訴 Google：這個頁面的標準網址就是它自己 (避免被當作重複內容)
-      canonical: `/${locale}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${baseUrl}/${locale}`,
+      siteName: "Coffee Brew Timer",
+      locale: isZh ? "zh_TW" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
     },
     icons: {
       icon: "/favicon.ico",

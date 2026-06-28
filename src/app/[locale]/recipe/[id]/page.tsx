@@ -2,12 +2,57 @@ import { recipes } from "@/data/recipes";
 import { notFound } from "next/navigation";
 import BrewTimer from "@/components/BrewTimer";
 import { generateRecipeJsonLd } from "@/utils/seo";
+import { Metadata } from "next";
 export const runtime = "edge";
+
+const baseUrl = "https://coffee.el2k6xjp6.com";
 
 type Props = {
   params: Promise<{ id: string; locale: string }>;
   searchParams: Promise<{ coffee?: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id, locale } = await params;
+  const recipe = recipes.find((r) => r.id === id);
+  if (!recipe) return {};
+
+  const isZh = locale === "zh-TW";
+  const title = isZh
+    ? `${recipe.method} 手沖咖啡食譜 | Coffee Brew Timer`
+    : `${recipe.method} Brewing Recipe | Coffee Brew Timer`;
+  const description = isZh
+    ? `${recipe.method} 沖煮配方：咖啡粉 ${recipe.defaultCoffee}g，水溫 ${recipe.temp}°C，粉水比 1:${recipe.ratio}。附帶計時器與步驟引導。`
+    : `${recipe.method} brewing recipe: ${recipe.defaultCoffee}g coffee, ${recipe.temp}°C water, 1:${recipe.ratio} ratio. Includes step-by-step timer.`;
+  const url = `${baseUrl}/${locale}/recipe/${recipe.id}`;
+
+  return {
+    title,
+    description,
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: url,
+      languages: {
+        en: `${baseUrl}/en/recipe/${recipe.id}`,
+        "zh-TW": `${baseUrl}/zh-TW/recipe/${recipe.id}`,
+        "x-default": `${baseUrl}/en/recipe/${recipe.id}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Coffee Brew Timer",
+      locale: isZh ? "zh_TW" : "en_US",
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function RecipeDetailPage({
   params,

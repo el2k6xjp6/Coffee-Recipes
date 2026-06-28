@@ -320,12 +320,24 @@ export const recipes: Recipe[] = [
       {
         type: BREW_STEP_TYPES.POUR,
         startAt: 45,
+        targetWater: 250,
+        noteKey: "steps.pour_steady",
+      },
+      {
+        type: BREW_STEP_TYPES.POUR,
+        startAt: 120,
+        targetWater: 450,
+        noteKey: "steps.pour_steady",
+      },
+      {
+        type: BREW_STEP_TYPES.POUR,
+        startAt: 195,
         targetWater: 600,
-        noteKey: "steps.pour_steady", // 穩定緩慢注水至目標
+        noteKey: "steps.pour_steady",
       },
       {
         type: BREW_STEP_TYPES.WAIT,
-        startAt: 210, // 3:30 (Chemex 流速慢，通常總時間較長)
+        startAt: 270, // 4:30 (Chemex 流速慢，通常總時間較長)
         targetWater: 600,
         noteKey: "steps.drain",
       },
