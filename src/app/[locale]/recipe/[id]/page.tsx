@@ -7,6 +7,10 @@ export const runtime = "edge";
 
 const baseUrl = "https://coffee.el2k6xjp6.com";
 
+export async function generateStaticParams() {
+  return recipes.map((recipe) => ({ id: recipe.id }));
+}
+
 type Props = {
   params: Promise<{ id: string; locale: string }>;
   searchParams: Promise<{ coffee?: string }>;
@@ -19,8 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const isZh = locale === "zh-TW";
   const title = isZh
-    ? `${recipe.method} 手沖咖啡食譜 | Coffee Brew Timer`
-    : `${recipe.method} Brewing Recipe | Coffee Brew Timer`;
+    ? `${recipe.method} 手沖咖啡食譜`
+    : `${recipe.method} Brewing Recipe`;
   const description = isZh
     ? `${recipe.method} 沖煮配方：咖啡粉 ${recipe.defaultCoffee}g，水溫 ${recipe.temp}°C，粉水比 1:${recipe.ratio}。附帶計時器與步驟引導。`
     : `${recipe.method} brewing recipe: ${recipe.defaultCoffee}g coffee, ${recipe.temp}°C water, 1:${recipe.ratio} ratio. Includes step-by-step timer.`;

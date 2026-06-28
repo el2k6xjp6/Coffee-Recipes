@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { generateWebSiteJsonLd } from "@/utils/seo";
 import Footer from "@/components/Footer";
 import RecipeExplorer from "@/components/RecipeExplorer";
+import Link from "next/link";
 
 export const runtime = "edge";
 
@@ -14,6 +15,7 @@ export default async function IndexPage({
   const { locale } = await params;
   const jsonLd = generateWebSiteJsonLd(locale);
   const t = await getTranslations("Index");
+  const tRecipes = await getTranslations("recipes");
 
   return (
     // 1. 背景改為深色 zinc-950，並隱藏溢出避免光暈產生 scrollbar
@@ -41,6 +43,23 @@ export default async function IndexPage({
       <div className="relative z-10 w-full">
         <RecipeExplorer recipes={recipes} />
       </div>
+
+      {/* SEO: server-rendered recipe list, visually hidden but crawlable by Googlebot */}
+      <nav aria-label="recipes" className="sr-only">
+        <ul>
+          {recipes.map((recipe) => {
+            // nameKey format: "recipes.god_devil_standard.name" → strip "recipes." prefix
+            const key = recipe.nameKey.replace(/^recipes\./, "") as Parameters<typeof tRecipes>[0];
+            return (
+              <li key={recipe.id}>
+                <Link href={`/${locale}/recipe/${recipe.id}`}>
+                  {tRecipes(key)}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
 
       <Footer />
     </main>

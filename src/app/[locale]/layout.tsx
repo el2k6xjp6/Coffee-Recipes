@@ -40,13 +40,17 @@ export async function generateMetadata({
   const baseUrl = "https://coffee.el2k6xjp6.com";
 
   const isZh = locale === "zh-TW";
-  const title = isZh ? "手沖咖啡計時器 | Coffee Brew Timer" : "Coffee Brew Timer";
+  const siteName = "Coffee Brew Timer";
+  const defaultTitle = isZh ? `手沖咖啡計時器 | ${siteName}` : siteName;
   const description = isZh
     ? "開源手沖咖啡計時器與食譜，支援 V60、Switch、Aeropress 等多種沖煮法。"
     : "Your open-source coffee brewing companion. Recipes and timer for V60, Switch, Aeropress, and more.";
 
   return {
-    title,
+    title: {
+      default: defaultTitle,
+      template: isZh ? `%s | ${siteName}` : `%s | ${siteName}`,
+    },
     description,
     metadataBase: new URL(baseUrl),
     alternates: {
@@ -58,7 +62,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title,
+      title: defaultTitle,
       description,
       url: `${baseUrl}/${locale}`,
       siteName: "Coffee Brew Timer",
@@ -67,7 +71,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
-      title,
+      title: defaultTitle,
       description,
     },
     icons: {
