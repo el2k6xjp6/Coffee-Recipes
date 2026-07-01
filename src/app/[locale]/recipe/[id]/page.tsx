@@ -3,8 +3,6 @@ import { notFound } from "next/navigation";
 import BrewTimer from "@/components/BrewTimer";
 import { generateRecipeJsonLd } from "@/utils/seo";
 import { Metadata } from "next";
-export const runtime = "edge";
-
 const baseUrl = "https://coffee.el2k6xjp6.com";
 
 export async function generateStaticParams() {
