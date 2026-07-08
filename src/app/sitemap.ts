@@ -28,15 +28,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  // 3. Root URL entry
-  const rootEntry: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-  ];
-
-  return [...rootEntry, ...homeEntries, ...recipeEntries];
+  return [...homeEntries, ...recipeEntries];
 }
